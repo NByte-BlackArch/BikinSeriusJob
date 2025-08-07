@@ -72,7 +72,7 @@ if (isValid) {
 > Portofolio: ${portfolio || 'Tidak ada'}
 `;
 
-  const whatsappNumber = '6281230760785';
+  const whatsappNumber = '6287857424226';
   const encodedMsg = encodeURIComponent(message);
   const whatsappURL = `https://wa.me/${whatsappNumber}?text=${encodedMsg}`;
 
