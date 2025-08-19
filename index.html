@@ -6,7 +6,810 @@
   <title>BikinSerius.id - Rekrutmen Profesional</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style.css">
+  <style>
+    /* Reset & Base Styles */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --primary: #2563eb;
+      --primary-dark: #1d4ed8;
+      --secondary: #10b981;
+      --dark: #1f2937;
+      --light: #f9fafb;
+      --gray: #6b7280;
+      --light-gray: #e5e7eb;
+      --accent: #f59e0b;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      line-height: 1.6;
+      color: var(--dark);
+      background-color: var(--light);
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+
+    section {
+      padding: 80px 0;
+    }
+
+    .section-header {
+      text-align: center;
+      margin-bottom: 60px;
+    }
+
+    .section-header h2 {
+      font-size: 2.5rem;
+      margin-bottom: 15px;
+      color: var(--dark);
+      position: relative;
+      display: inline-block;
+    }
+
+    .section-header h2::after {
+      content: '';
+      position: absolute;
+      bottom: -10px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 60px;
+      height: 4px;
+      background: var(--primary);
+      border-radius: 2px;
+    }
+
+    .section-header p {
+      font-size: 1.1rem;
+      color: var(--gray);
+    }
+
+    /* Button Styles */
+    .btn-primary, .btn-outline, .btn-nav, .btn-card, .btn-submit {
+      display: inline-block;
+      padding: 12px 28px;
+      border-radius: 8px;
+      font-weight: 600;
+      text-decoration: none;
+      transition: all 0.3s ease;
+      cursor: pointer;
+    }
+
+    .btn-primary {
+      background: var(--primary);
+      color: white;
+      border: none;
+    }
+
+    .btn-primary:hover {
+      background: var(--primary-dark);
+      transform: translateY(-2px);
+      box-shadow: 0 10px 25px rgba(37, 99, 235, 0.2);
+    }
+
+    .btn-outline {
+      background: transparent;
+      color: var(--primary);
+      border: 2px solid var(--primary);
+    }
+
+    .btn-outline:hover {
+      background: var(--primary);
+      color: white;
+      transform: translateY(-2px);
+    }
+
+    .btn-nav {
+      padding: 8px 20px;
+      background: var(--primary);
+      color: white;
+    }
+
+    .btn-nav:hover {
+      background: var(--primary-dark);
+    }
+
+    .btn-card {
+      width: 100%;
+      text-align: center;
+      background: var(--primary);
+      color: white;
+      border: none;
+      margin-top: 20px;
+    }
+
+    .btn-card:hover {
+      background: var(--primary-dark);
+    }
+
+    .btn-submit {
+      width: 100%;
+      background: var(--primary);
+      color: white;
+      border: none;
+      font-size: 1.1rem;
+      padding: 15px;
+    }
+
+    .btn-submit:hover {
+      background: var(--primary-dark);
+    }
+
+    /* Navigation */
+    .navbar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      background: white;
+      box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
+      z-index: 1000;
+      padding: 15px 0;
+    }
+
+    .navbar .container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo span {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--primary);
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 30px;
+      align-items: center;
+    }
+
+    .nav-links a {
+      text-decoration: none;
+      color: var(--dark);
+      font-weight: 500;
+      transition: color 0.3s ease;
+    }
+
+    .nav-links a:not(.btn-nav):hover {
+      color: var(--primary);
+    }
+
+    .hamburger {
+      display: none;
+      font-size: 1.5rem;
+      cursor: pointer;
+    }
+
+    /* Hero Section */
+    .hero {
+      padding-top: 150px;
+      padding-bottom: 100px;
+      background: linear-gradient(135deg, #f0f4ff 0%, #e6f0ff 100%);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: -100px;
+      right: -100px;
+      width: 400px;
+      height: 400px;
+      border-radius: 50%;
+      background: rgba(37, 99, 235, 0.1);
+      z-index: 0;
+    }
+
+    .hero::after {
+      content: '';
+      position: absolute;
+      bottom: -100px;
+      left: -100px;
+      width: 300px;
+      height: 300px;
+      border-radius: 50%;
+      background: rgba(16, 185, 129, 0.1);
+      z-index: 0;
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 1;
+      max-width: 700px;
+    }
+
+    .hero-content h1 {
+      font-size: 3.2rem;
+      margin-bottom: 20px;
+      line-height: 1.2;
+    }
+
+    .hero-content h1 span {
+      color: var(--primary);
+    }
+
+    .hero-content p {
+      font-size: 1.2rem;
+      margin-bottom: 30px;
+      color: var(--gray);
+    }
+
+    .hero-cta {
+      display: flex;
+      gap: 15px;
+    }
+
+    /* About Section */
+    .about-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 30px;
+    }
+
+    .about-card {
+      background: white;
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
+      text-align: center;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .about-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+    }
+
+    .about-card i {
+      font-size: 2.5rem;
+      color: var(--primary);
+      margin-bottom: 20px;
+    }
+
+    .about-card h3 {
+      margin-bottom: 15px;
+      font-size: 1.3rem;
+    }
+
+    /* Founder Section */
+    .founder-profile {
+      display: grid;
+      grid-template-columns: 300px 1fr;
+      gap: 50px;
+      align-items: center;
+      background: white;
+      padding: 40px;
+      border-radius: 12px;
+      box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
+    }
+
+    .founder-photo {
+      position: relative;
+    }
+
+    .founder-photo-img {
+      width: 100%;
+      height: 350px;
+      object-fit: cover;
+      border-radius: 8px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    }
+
+    .founder-info h3 {
+      font-size: 1.8rem;
+      margin-bottom: 5px;
+    }
+
+    .position {
+      color: var(--primary);
+      font-weight: 500;
+      margin-bottom: 20px;
+    }
+
+    .bio {
+      margin-bottom: 25px;
+      color: var(--gray);
+    }
+
+    .education h4 {
+      margin-bottom: 10px;
+      font-size: 1.1rem;
+    }
+
+    .education p {
+      margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .social {
+      display: flex;
+      gap: 15px;
+      margin-top: 25px;
+    }
+
+    .sosial-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: var(--light-gray);
+      color: var(--dark);
+      transition: all 0.3s ease;
+    }
+
+    .sosial-btn:hover {
+      background: var(--primary);
+      color: white;
+      transform: translateY(-3px);
+    }
+
+    /* Positions Section */
+    .positions-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+      gap: 30px;
+    }
+
+    .position-card {
+      background: white;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .position-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+    }
+
+    .card-header {
+      padding: 25px;
+      background: var(--primary);
+      color: white;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .card-header h3 {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 1.2rem;
+    }
+
+    .position-tag {
+      background: white;
+      color: var(--primary);
+      padding: 5px 12px;
+      border-radius: 20px;
+      font-size: 0.8rem;
+      font-weight: 600;
+    }
+
+    .position-details {
+      padding: 20px 25px;
+      border-bottom: 1px solid var(--light-gray);
+    }
+
+    .position-details p {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 10px;
+    }
+
+    .requirements {
+      padding: 25px;
+    }
+
+    .requirements h4 {
+      margin-bottom: 15px;
+      font-size: 1.1rem;
+    }
+
+    .requirements ul {
+      list-style: none;
+    }
+
+    .requirements li {
+      margin-bottom: 10px;
+      padding-left: 25px;
+      position: relative;
+    }
+
+    .requirements li::before {
+      content: '•';
+      color: var(--primary);
+      font-weight: bold;
+      position: absolute;
+      left: 0;
+    }
+
+    /* Benefits Section */
+    .benefits-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 30px;
+    }
+
+    .benefit-card {
+      background: white;
+      padding: 30px;
+      border-radius: 12px;
+      text-align: center;
+      box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .benefit-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+    }
+
+    .benefit-icon {
+      width: 70px;
+      height: 70px;
+      border-radius: 50%;
+      background: rgba(37, 99, 235, 0.1);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 20px;
+    }
+
+    .benefit-icon i {
+      font-size: 1.8rem;
+      color: var(--primary);
+    }
+
+    .benefit-card h3 {
+      margin-bottom: 15px;
+      font-size: 1.3rem;
+    }
+
+    /* Fee Section */
+    .fee {
+      background: linear-gradient(135deg, #f0f4ff 0%, #e6f0ff 100%);
+    }
+
+    .fee-container {
+      background: white;
+      border-radius: 12px;
+      padding: 40px;
+      box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
+    }
+
+    .fee-content h2 {
+      font-size: 2rem;
+      margin-bottom: 20px;
+      color: var(--dark);
+    }
+
+    .fee-content > p {
+      margin-bottom: 20px;
+      font-size: 1.1rem;
+      color: var(--gray);
+    }
+
+    .fee-content ul {
+      list-style: none;
+      margin-bottom: 25px;
+    }
+
+    .fee-content li {
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .fee-content li i {
+      color: var(--secondary);
+    }
+
+    .note {
+      background: rgba(245, 158, 11, 0.1);
+      border-left: 4px solid var(--accent);
+      padding: 15px 20px;
+      border-radius: 4px;
+      display: flex;
+      gap: 10px;
+    }
+
+    .note i {
+      color: var(--accent);
+      font-size: 1.2rem;
+    }
+
+    /* Apply Section */
+    .apply-container {
+      display: grid;
+      grid-template-columns: 2fr 1fr;
+      gap: 40px;
+    }
+
+    .apply-form {
+      background: white;
+      padding: 40px;
+      border-radius: 12px;
+      box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
+    }
+
+    .form-header {
+      margin-bottom: 30px;
+    }
+
+    .form-header h2 {
+      font-size: 1.8rem;
+      margin-bottom: 10px;
+    }
+
+    .form-group {
+      margin-bottom: 20px;
+    }
+
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 8px;
+      font-weight: 500;
+    }
+
+    input, select, textarea {
+      width: 100%;
+      padding: 12px 15px;
+      border: 1px solid var(--light-gray);
+      border-radius: 8px;
+      font-family: 'Inter', sans-serif;
+      transition: border-color 0.3s ease;
+    }
+
+    input:focus, select:focus, textarea:focus {
+      outline: none;
+      border-color: var(--primary);
+    }
+
+    .file-upload {
+      position: relative;
+    }
+
+    .file-upload input[type="file"] {
+      position: absolute;
+      left: 0;
+      top: 0;
+      opacity: 0;
+      width: 100%;
+      height: 100%;
+      cursor: pointer;
+    }
+
+    .file-upload label {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      padding: 12px 15px;
+      background: var(--light);
+      border: 1px dashed var(--gray);
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .file-upload label:hover {
+      border-color: var(--primary);
+      color: var(--primary);
+    }
+
+    .agreement {
+      display: flex;
+      gap: 10px;
+      margin: 25px 0;
+    }
+
+    .agreement input {
+      width: auto;
+    }
+
+    .apply-info {
+      display: flex;
+      flex-direction: column;
+      gap: 30px;
+    }
+
+    .info-card, .contact-card {
+      background: white;
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
+    }
+
+    .info-card h3, .contact-card h3 {
+      margin-bottom: 20px;
+      font-size: 1.3rem;
+      padding-bottom: 10px;
+      border-bottom: 2px solid var(--light-gray);
+    }
+
+    .process-steps {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .step {
+      display: flex;
+      gap: 15px;
+      align-items: flex-start;
+    }
+
+    .step-number {
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      background: var(--primary);
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 600;
+      flex-shrink: 0;
+    }
+
+    .step-content h4 {
+      margin-bottom: 5px;
+      font-size: 1rem;
+    }
+
+    .step-content p {
+      font-size: 0.9rem;
+      color: var(--gray);
+    }
+
+    .contact-card ul {
+      list-style: none;
+    }
+
+    .contact-card li {
+      margin-bottom: 15px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    /* Footer */
+    .footer {
+      background: var(--dark);
+      color: white;
+      padding: 60px 0 20px;
+    }
+
+    .footer-content {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 40px;
+      margin-bottom: 40px;
+    }
+
+    .footer-brand h3 {
+      font-size: 1.8rem;
+      margin-bottom: 15px;
+    }
+
+    .footer-brand p {
+      margin-bottom: 20px;
+      color: #d1d5db;
+    }
+
+    .footer-links h4, .footer-contact h4 {
+      font-size: 1.2rem;
+      margin-bottom: 20px;
+      position: relative;
+      padding-bottom: 10px;
+    }
+
+    .footer-links h4::after, .footer-contact h4::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 40px;
+      height: 3px;
+      background: var(--primary);
+    }
+
+    .footer-links ul {
+      list-style: none;
+    }
+
+    .footer-links li {
+      margin-bottom: 10px;
+    }
+
+    .footer-links a {
+      color: #d1d5db;
+      text-decoration: none;
+      transition: color 0.3s ease;
+    }
+
+    .footer-links a:hover {
+      color: white;
+    }
+
+    .footer-contact ul {
+      list-style: none;
+    }
+
+    .footer-contact li {
+      margin-bottom: 15px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .footer-bottom {
+      text-align: center;
+      padding-top: 20px;
+      border-top: 1px solid #374151;
+      color: #9ca3af;
+    }
+
+    /* Responsive Design */
+    @media (max-width: 992px) {
+      .founder-profile {
+        grid-template-columns: 1fr;
+        text-align: center;
+      }
+      
+      .apply-container {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .nav-links {
+        display: none;
+      }
+      
+      .hamburger {
+        display: block;
+      }
+      
+      .hero-content h1 {
+        font-size: 2.5rem;
+      }
+      
+      .hero-cta {
+        flex-direction: column;
+      }
+      
+      .form-row {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
 </head>
 <body>
   <!-- Navigation -->
@@ -33,7 +836,7 @@
     <div class="container">
       <div class="hero-content">
         <h1>Bergabunglah dengan Tim <span>Inovator Digital</span></h1>
-        <p>Kembangkan karir Anda bersama BikinSerius</p>
+        <p>Kembangkan karir Anda bersama BikinSerius.id - perusahaan jasa digital terdepan dengan standar kualitas internasional</p>
         <div class="hero-cta">
           <a href="#positions" class="btn-primary">Lihat Posisi</a>
           <a href="#apply" class="btn-outline">Daftar Sekarang</a>
@@ -47,47 +850,48 @@
     <div class="container">
       <div class="section-header">
         <h2>Tentang Perusahaan</h2>
-        <p>Perusahaan jasa digital terdepan</p>
+        <p>Perusahaan jasa digital terdepan dengan fokus pada inovasi dan kualitas</p>
       </div>
       <div class="about-grid">
         <div class="about-card">
           <i class="fas fa-rocket"></i>
           <h3>Visi</h3>
-          <p>Menjadi perusahaan jasa digital terkemuka di Asia Tenggara dengan standar kualitas internasional.</p>
+          <p>Menjadi perusahaan jasa digital terkemuka di Asia Tenggara dengan standar kualitas internasional dan memberikan dampak positif bagi ekosistem digital.</p>
         </div>
         <div class="about-card">
           <i class="fas fa-bullseye"></i>
           <h3>Misi</h3>
-          <p>Memberikan solusi digital inovatif yang membantu klien mencapai tujuan bisnis mereka.</p>
+          <p>Memberikan solusi digital inovatif yang membantu klien mencapai tujuan bisnis mereka dengan pendekatan yang strategis dan terukur.</p>
         </div>
         <div class="about-card">
           <i class="fas fa-chart-line"></i>
           <h3>Pencapaian</h3>
-          <p>150+ proyek terselesaikan dengan tingkat kepuasan klien 98% selama 4 tahun beroperasi.</p>
+          <p>200+ proyek terselesaikan dengan tingkat kepuasan klien 98% selama 5 tahun beroperasi di berbagai sektor industri.</p>
         </div>
       </div>
     </div>
   </section>
 
   <!-- Founder Section -->
-<section class="section founder" id="founder">
-  <div class="container">
-    <div class="section-header">
-      <h2>Pendiri & CEO</h2>
-      <p>Pemimpin di balik kesuksesan perusahaan</p>
-    </div>
-    <div class="founder-profile">
-      <div class="founder-photo">
-        <img src="founder.jpg" alt="Foto Founder" class="founder-photo-img">
-          </div>
-          <div class="founder-info">
+  <section class="section founder" id="founder">
+    <div class="container">
+      <div class="section-header">
+        <h2>Pendiri & CEO</h2>
+        <p>Pemimpin visioner di balik kesuksesan perusahaan</p>
+      </div>
+      <div class="founder-profile">
+        <div class="founder-photo">
+          <img src="https://placehold.co/400x500/2563eb/ffffff?text=Yudi+Ardata" alt="Foto Founder" class="founder-photo-img">
+        </div>
+        <div class="founder-info">
           <h3>Yudi Ardata</h3>
           <p class="position">CEO & Pendiri BikinSerius.id</p>
-          <p class="bio">Dengan pengalaman 8 tahun di bidang cybersecurity dan dikenal dengan julukan NullByte di dunia underground. Beliau sudah sangat ahli di bidangnya.</p>
+          <p class="bio">Dengan pengalaman 8+ tahun di bidang cybersecurity dan dikenal dengan julukan NullByte di dunia underground. Seorang visioner yang telah membawa BikinSerius.id menjadi perusahaan jasa digital terpercaya dengan fokus pada inovasi dan keamanan siber.</p>
           <div class="education">
             <h4>Pendidikan:</h4>
             <p><i class="fas fa-graduation-cap"></i> S1 Teknik Informatika, Universitas Indonesia</p>
             <p><i class="fas fa-graduation-cap"></i> S2 Ilmu Komputer, Stanford University</p>
+            <p><i class="fas fa-certificate"></i> Sertifikasi CISSP, CEH, dan CISM</p>
           </div>
           <div class="social">
             <a href="https://www.youtube.com/@NByte-BlackArch" target="_blank" class="sosial-btn">
@@ -98,6 +902,9 @@
             </a>
             <a href="https://www.instagram.com/7hejansen" target="_blank" class="sosial-btn">
               <i class="fab fa-instagram"></i>
+            </a>
+            <a href="https://linkedin.com" target="_blank" class="sosial-btn">
+              <i class="fab fa-linkedin"></i>
             </a>
           </div>
         </div>
@@ -110,7 +917,7 @@
     <div class="container">
       <div class="section-header">
         <h2>Posisi yang Tersedia</h2>
-        <p>Bergabunglah dengan Tim profesional kami</p>
+        <p>Bergabunglah dengan tim profesional kami dan kembangkan karir Anda</p>
       </div>
       <div class="positions-grid">
         <div class="position-card">
@@ -126,9 +933,10 @@
             <h4>Persyaratan:</h4>
             <ul>
               <li>Pengalaman 2+ tahun sebagai Fullstack Developer</li>
-              <li>Menguasai JavaScript, React, Node.js</li>
-              <li>Memahami database SQL dan NoSQL</li>
-              <li>Pengalaman dengan Git dan Agile</li>
+              <li>Menguasai JavaScript, React, Node.js, dan framework modern</li>
+              <li>Memahami database SQL dan NoSQL serta optimasinya</li>
+              <li>Pengalaman dengan Git, Agile, dan DevOps practices</li>
+              <li>Kemampuan problem-solving dan analytical thinking yang kuat</li>
             </ul>
           </div>
           <a href="#apply" class="btn-card">Lamar Sekarang</a>
@@ -146,10 +954,11 @@
           <div class="requirements">
             <h4>Persyaratan:</h4>
             <ul>
-              <li>Portofolio desain UI/UX yang kuat</li>
-              <li>Menguasai Figma, Adobe XD, atau Sketch</li>
-              <li>Memahami prinsip UX dan design thinking</li>
-              <li>Pengalaman dengan user research</li>
+              <li>Portofolio desain UI/UX yang kuat dan terukur</li>
+              <li>Menguasai Figma, Adobe XD, Sketch, dan prototyping tools</li>
+              <li>Memahami prinsip UX, design thinking, dan user-centered design</li>
+              <li>Pengalaman dengan user research, testing, dan iterasi desain</li>
+              <li>Kemampuan berkolaborasi dengan tim development</li>
             </ul>
           </div>
           <a href="#apply" class="btn-card">Lamar Sekarang</a>
@@ -167,24 +976,93 @@
           <div class="requirements">
             <h4>Persyaratan:</h4>
             <ul>
-              <li>Sertifikasi CEH, CISSP, atau setara</li>
+              <li>Sertifikasi CEH, CISSP, CISM, atau setara</li>
               <li>Pengalaman 3+ tahun di bidang keamanan siber</li>
-              <li>Menguasai teknik penetration testing</li>
-              <li>Memahami sistem keamanan jaringan</li>
+              <li>Menguasai teknik penetration testing dan vulnerability assessment</li>
+              <li>Memahami sistem keamanan jaringan, cloud, dan aplikasi</li>
+              <li>Pengalaman dengan forensik digital dan incident response</li>
             </ul>
           </div>
           <a href="#apply" class="btn-card">Lamar Sekarang</a>
         </div>
-     </div>
-  </div>
-</section>
+
+        <!-- New Position: Content Creator -->
+        <div class="position-card">
+          <div class="card-header">
+            <h3><i class="fas fa-video"></i> Konten Kreator</h3>
+            <div class="position-tag">Full-time</div>
+          </div>
+          <div class="position-details">
+            <p><i class="fas fa-map-marker-alt"></i> Jakarta, Remote</p>
+            <p><i class="fas fa-money-bill-wave"></i> Rp 6.000.000 - Rp 10.000.000</p>
+          </div>
+          <div class="requirements">
+            <h4>Persyaratan:</h4>
+            <ul>
+              <li>Pengalaman 2+ tahun sebagai content creator atau bidang serupa</li>
+              <li>Menguasai pembuatan konten video, tulisan, dan visual</li>
+              <li>Memahami platform media sosial dan algoritmanya</li>
+              <li>Kemampuan editing video (Adobe Premiere, Final Cut Pro)</li>
+              <li>Kreatif, inovatif, dan memahami tren terkini</li>
+            </ul>
+          </div>
+          <a href="#apply" class="btn-card">Lamar Sekarang</a>
+        </div>
+
+        <!-- New Position: Digital Sales -->
+        <div class="position-card">
+          <div class="card-header">
+            <h3><i class="fas fa-chart-line"></i> Digital Sales Specialist</h3>
+            <div class="position-tag">Full-time</div>
+          </div>
+          <div class="position-details">
+            <p><i class="fas fa-map-marker-alt"></i> Jakarta, Remote</p>
+            <p><i class="fas fa-money-bill-wave"></i> Rp 5.500.000 - Rp 9.000.000 + Komisi</p>
+          </div>
+          <div class="requirements">
+            <h4>Persyaratan:</h4>
+            <ul>
+              <li>Pengalaman 2+ tahun di sales digital atau bidang serupa</li>
+              <li>Memahami digital marketing dan sales funnel</li>
+              <li>Kemampuan komunikasi dan negosiasi yang excellent</li>
+              <li>Menguasai CRM tools dan platform sales</li>
+              <li>Target-oriented dan mampu bekerja under pressure</li>
+            </ul>
+          </div>
+          <a href="#apply" class="btn-card">Lamar Sekarang</a>
+        </div>
+
+        <div class="position-card">
+          <div class="card-header">
+            <h3><i class="fas fa-chalkboard-teacher"></i> IT Training Instructor</h3>
+            <div class="position-tag">Part-time</div>
+          </div>
+          <div class="position-details">
+            <p><i class="fas fa-map-marker-alt"></i> Jakarta, Sumenep, Remote</p>
+            <p><i class="fas fa-money-bill-wave"></i> Rp 500.000 - Rp 1.200.000 / sesi</p>
+          </div>
+          <div class="requirements">
+            <h4>Persyaratan:</h4>
+            <ul>
+              <li>Pengalaman 3+ tahun di bidang IT yang relevan</li>
+              <li>Kemampuan public speaking dan mengajar yang baik</li>
+              <li>Menguasai materi pembelajaran dengan mendalam</li>
+              <li>Sertifikasi bidang terkait merupakan nilai tambah</li>
+              <li>Kemampuan membuat kurikulum dan materi training</li>
+            </ul>
+          </div>
+          <a href="#apply" class="btn-card">Lamar Sekarang</a>
+        </div>
+      </div>
+    </div>
+  </section>
 
   <!-- Benefits Section -->
   <section class="section benefits" id="benefits">
     <div class="container">
       <div class="section-header">
         <h2>Benefit Karyawan</h2>
-        <p>Kami menghargai kontribusi setiap anggota tim</p>
+        <p>Kami menghargai kontribusi setiap anggota tim dengan paket benefit komprehensif</p>
       </div>
       <div class="benefits-grid">
         <div class="benefit-card">
@@ -192,25 +1070,47 @@
             <i class="fas fa-money-bill-wave"></i>
           </div>
           <h3>Gaji Kompetitif</h3>
-          <p>Paket kompensasi di atas standar pasar dengan bonus kinerja</p>
+          <p>Paket kompensasi di atas standar pasar dengan bonus kinerja dan insentif project-based</p>
         </div>
         <div class="benefit-card">
           <div class="benefit-icon">
             <i class="fas fa-graduation-cap"></i>
           </div>
           <h3>Pengembangan Karir</h3>
-          <p>Program pelatihan dan sertifikasi untuk pengembangan profesional</p>
+          <p>Program pelatihan, sertifikasi, dan mentorship untuk pengembangan profesional berkelanjutan</p>
         </div>
         <div class="benefit-card">
           <div class="benefit-icon">
             <i class="fas fa-heartbeat"></i>
           </div>
           <h3>Asuransi Kesehatan</h3>
-          <p>Asuransi komprehensif untuk karyawan dan keluarga</p>
+          <p>Asuransi komprehensif untuk karyawan dan keluarga, termasuk rawat inap dan gigi</p>
+        </div>
+        <div class="benefit-card">
+          <div class="benefit-icon">
+            <i class="fas fa-home"></i>
+          </div>
+          <h3>Work Flexibility</h3>
+          <p>Opsi kerja hybrid dan remote dengan dukungan peralatan kerja yang memadai</p>
+        </div>
+        <div class="benefit-card">
+          <div class="benefit-icon">
+            <i class="fas fa-umbrella-beach"></i>
+          </div>
+          <h3>Cuti yang Layak</h3>
+          <p>12 hari cuti tahunan, cuti sakit, dan liburan nasional sesuai regulasi ketenagakerjaan</p>
+        </div>
+        <div class="benefit-card">
+          <div class="benefit-icon">
+            <i class="fas fa-dumbbell"></i>
+          </div>
+          <h3>Wellness Program</h3>
+          <p>Program kesehatan mental, gym membership, dan aktivitas team building secara berkala</p>
         </div>
       </div>
     </div>
-</section>
+  </section>
+
   <!-- Fee Section -->
   <section class="section fee">
     <div class="container">
@@ -219,14 +1119,15 @@
           <h2>Biaya Pendaftaran Awal</h2>
           <p>Kami menerapkan biaya pendaftaran sebesar <strong>Rp 119.000</strong> untuk setiap kandidat. Biaya ini akan digunakan untuk:</p>
           <ul>
-            <li><i class="fas fa-check-circle"></i> Proses verifikasi dokumen dan latar belakang kandidat</li>
-            <li><i class="fas fa-check-circle"></i> Administrasi sistem rekrutmen</li>
-            <li><i class="fas fa-check-circle"></i> Pengelolaan proses seleksi</li>
-            <li><i class="fas fa-check-circle"></i> Biaya operasional tim rekrutmen</li>
+            <li><i class="fas fa-check-circle"></i> Proses verifikasi dokumen dan latar belakang kandidat secara menyeluruh</li>
+            <li><i class="fas fa-check-circle"></i> Administrasi sistem rekrutmen dan pengelolaan database</li>
+            <li><i class="fas fa-check-circle"></i> Pengelolaan proses seleksi yang komprehensif dan terstruktur</li>
+            <li><i class="fas fa-check-circle"></i> Biaya operasional tim rekrutmen profesional</li>
+            <li><i class="fas fa-check-circle"></i> Pengembangan sistem assessment dan testing yang berkualitas</li>
           </ul>
           <div class="note">
             <i class="fas fa-info-circle"></i>
-            <p>Biaya ini hanya dibayarkan sekali di awal proses dan tidak dapat dikembalikan jika kandidat mengundurkan diri atau tidak lulus seleksi.</p>
+            <p>Biaya ini hanya dibayarkan sekali di awal proses dan tidak dapat dikembalikan jika kandidat mengundurkan diri atau tidak lulus seleksi. Pembayaran dilakukan setelah lolos tahap seleksi administrasi.</p>
           </div>
         </div>
       </div>
@@ -240,7 +1141,7 @@
         <div class="apply-form">
           <div class="form-header">
             <h2>Formulir Pendaftaran</h2>
-            <p>Isi data diri Anda dengan lengkap dan benar</p>
+            <p>Isi data diri Anda dengan lengkap dan benar untuk proses seleksi</p>
           </div>
           <form id="registration-form">
             <div class="form-group">
@@ -253,7 +1154,7 @@
                 <input type="email" id="email" required placeholder="email@gmail.com">
               </div>
               <div class="form-group">
-                <label for="phone">Telepon</label>
+                <label for="phone">Telepon/WhatsApp</label>
                 <input type="tel" id="phone" required placeholder="0812-3456-7890">
               </div>
             </div>
@@ -264,6 +1165,8 @@
                 <option value="developer">Fullstack Developer</option>
                 <option value="designer">UI/UX Designer</option>
                 <option value="security">Cyber Security Specialist</option>
+                <option value="content">Konten Kreator</option>
+                <option value="sales">Digital Sales Specialist</option>
                 <option value="instructor">IT Training Instructor</option>
               </select>
             </div>
@@ -279,12 +1182,16 @@
               </div>
             </div>
             <div class="form-group">
-              <label for="portfolio">Link Portofolio/GitHub (jika ada)</label>
+              <label for="portfolio">Link Portofolio/GitHub/LinkedIn</label>
               <input type="url" id="portfolio" placeholder="https://">
+            </div>
+            <div class="form-group">
+              <label for="message">Pesan Tambahan (opsional)</label>
+              <textarea id="message" rows="3" placeholder="Ceritakan mengapa Anda tertarik bergabung dengan BikinSerius.id"></textarea>
             </div>
             <div class="agreement">
               <input type="checkbox" id="agree" required>
-              <label for="agree">Saya menyetujui pembayaran biaya pendaftaran sebesar Rp 119.000</label>
+              <label for="agree">Saya menyetujui pembayaran biaya pendaftaran sebesar Rp 119.000 setelah lolos tahap seleksi administrasi</label>
             </div>
             <button type="submit" class="btn-submit">Kirim Pendaftaran</button>
           </form>
@@ -297,42 +1204,42 @@
                 <div class="step-number">1</div>
                 <div class="step-content">
                   <h4>Pendaftaran</h4>
-                  <p>Mengisi formulir dan dokumen</p>
+                  <p>Mengisi formulir dan mengunggah dokumen required</p>
                 </div>
               </div>
               <div class="step">
                 <div class="step-number">2</div>
                 <div class="step-content">
                   <h4>Seleksi Administrasi</h4>
-                  <p>Verifikasi dokumen (1-3 hari)</p>
+                  <p>Verifikasi dokumen dan kualifikasi (1-3 hari kerja)</p>
                 </div>
               </div>
               <div class="step">
                 <div class="step-number">3</div>
                 <div class="step-content">
                   <h4>Pembayaran Biaya</h4>
-                  <p>Setelah lolos seleksi dokumen</p>
+                  <p>Melakukan pembayaran setelah lolos seleksi dokumen</p>
                 </div>
               </div>
               <div class="step">
                 <div class="step-number">4</div>
                 <div class="step-content">
                   <h4>Tes Kemampuan</h4>
-                  <p>Technical test sesuai posisi</p>
+                  <p>Technical test dan assessment sesuai posisi</p>
                 </div>
               </div>
               <div class="step">
                 <div class="step-number">5</div>
                 <div class="step-content">
                   <h4>Wawancara</h4>
-                  <p>Dengan tim HR dan user</p>
+                  <p>Wawancara dengan tim HR dan user (2-3 tahap)</p>
                 </div>
               </div>
               <div class="step">
                 <div class="step-number">6</div>
                 <div class="step-content">
                   <h4>Penawaran</h4>
-                  <p>Penandatanganan kontrak</p>
+                  <p>Pemberian offer letter dan penandatanganan kontrak</p>
                 </div>
               </div>
             </div>
@@ -340,9 +1247,10 @@
           <div class="contact-card">
             <h3>Kontak Rekrutmen</h3>
             <ul>
-              <li><i class="fab fa-whatsapp"></i> +6287857424226</li>
+              <li><i class="fab fa-whatsapp"></i> +6287857424226 (WhatsApp Only)</li>
               <li><i class="fas fa-envelope"></i> bikinserius.id@gmail.com</li>
               <li><i class="fas fa-clock"></i> Senin-Minggu, 09.00-22.00 WIB</li>
+              <li><i class="fas fa-map-marker-alt"></i> Jl. Kartini Pangarangan, Sumenep</li>
             </ul>
           </div>
         </div>
@@ -356,13 +1264,19 @@
       <div class="footer-content">
         <div class="footer-brand">
           <h3>BikinSerius.id</h3>
-          <p>Perusahaan jasa digital profesional dengan fokus pada kualitas dan inovasi</p>
+          <p>Perusahaan jasa digital profesional dengan fokus pada kualitas, inovasi, dan keamanan siber untuk solusi bisnis masa depan.</p>
           <div class="social-links">
             <a href="https://www.instagram.com/bikinserius.id" target="_blank" class="sosial-btn">
               <i class="fab fa-instagram"></i>
             </a>
             <a href="https://web.facebook.com/profile.php?id=61578816287968" target="_blank" class="sosial-btn">
               <i class="fab fa-facebook"></i>
+            </a>
+            <a href="#" class="sosial-btn">
+              <i class="fab fa-linkedin"></i>
+            </a>
+            <a href="#" class="sosial-btn">
+              <i class="fab fa-youtube"></i>
             </a>
           </div>
         </div>
@@ -372,6 +1286,16 @@
             <li><a href="#about">Tentang Kami</a></li>
             <li><a href="#founder">Pendiri</a></li>
             <li><a href="#positions">Karir</a></li>
+            <li><a href="#benefits">Benefit</a></li>
+          </ul>
+        </div>
+        <div class="footer-links">
+          <h4>Layanan</h4>
+          <ul>
+            <li><a href="#">Web Development</a></li>
+            <li><a href="#">Cyber Security</a></li>
+            <li><a href="#">Digital Marketing</a></li>
+            <li><a href="#">IT Training</a></li>
           </ul>
         </div>
         <div class="footer-links">
@@ -379,23 +1303,68 @@
           <ul>
             <li><a href="#">Syarat & Ketentuan</a></li>
             <li><a href="#">Kebijakan Privasi</a></li>
+            <li><a href="#">Kebijakan Cookie</a></li>
           </ul>
         </div>
         <div class="footer-contact">
           <h4>Kontak</h4>
           <ul>
-            <li><i class="fas fa-map-marker-alt"></i> Jl. Kartini Pangarangan, Sumenep</li>
-            <li><i class="fas fa-phone"></i> +6287857424226</li>
+            <li><i class="fas fa-map-marker-alt"></i> Jl. Kartini Pangarangan, Sumenep, Jawa Timur</li>
+            <li><i class="fas fa-phone"></i> +6287857424226 (Admin)</li>
             <li><i class="fas fa-envelope"></i> bikinserius.id@gmail.com</li>
+            <li><i class="fas fa-clock"></i> Senin-Minggu, 09.00-22.00 WIB</li>
           </ul>
         </div>
       </div>
       <div class="footer-bottom">
-        <p>&copy; 2023 BikinSerius.id. Seluruh hak cipta dilindungi.</p>
+        <p>&copy; 2023 BikinSerius.id. Seluruh hak cipta dilindungi. | PT. Bikin Serius Indonesia</p>
       </div>
     </div>
   </footer>
 
-  <script src="script.js"></script>
+  <script>
+    // Simple JavaScript for mobile navigation
+    document.addEventListener('DOMContentLoaded', function() {
+      const hamburger = document.querySelector('.hamburger');
+      const navLinks = document.querySelector('.nav-links');
+      
+      hamburger.addEventListener('click', function() {
+        navLinks.style.display = navLinks.style.display === 'flex' ? 'none' : 'flex';
+      });
+      
+      // Smooth scrolling for navigation links
+      document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+          e.preventDefault();
+          
+          const targetId = this.getAttribute('href');
+          if (targetId === '#') return;
+          
+          const targetElement = document.querySelector(targetId);
+          if (targetElement) {
+            window.scrollTo({
+              top: targetElement.offsetTop - 80,
+              behavior: 'smooth'
+            });
+            
+            // Close mobile menu if open
+            if (window.innerWidth < 768) {
+              navLinks.style.display = 'none';
+            }
+          }
+        });
+      });
+      
+      // Form submission handling
+      const registrationForm = document.getElementById('registration-form');
+      if (registrationForm) {
+        registrationForm.addEventListener('submit', function(e) {
+          e.preventDefault();
+          alert('Terima kasih! Pendaftaran Anda telah berhasil dikirim. Tim kami akan menghubungi Anda dalam 1-2 hari kerja.');
+          registrationForm.reset();
+        });
+      }
+    });
+  </script>
 </body>
 </html>
