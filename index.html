@@ -956,6 +956,33 @@
         padding: 60px 0;
       }
     }
+
+    /* Tambahan untuk form validation */
+    .error-message {
+      color: #e53e3e;
+      font-size: 0.875rem;
+      margin-top: 5px;
+      display: none;
+    }
+
+    input.error, select.error, textarea.error {
+      border-color: #e53e3e;
+    }
+
+    .file-name {
+      margin-top: 5px;
+      font-size: 0.875rem;
+      color: var(--gray);
+    }
+
+    .whatsapp-direct {
+      margin-top: 20px;
+      text-align: center;
+      padding: 15px;
+      background-color: rgba(37, 211, 102, 0.1);
+      border-radius: 8px;
+      border-left: 4px solid #25D366;
+    }
   </style>
 </head>
 <body>
@@ -1039,11 +1066,15 @@
       </div>
       <div class="founder-profile">
         <div class="founder-photo">
-          <img src="founder.jpg" alt="Foto Founder" class="founder-photo-img">
+          <img src="https://placehold.co/400x500/2563eb/white?text=Yudi+Ardata" alt="Foto Founder" class="founder-photo-img">
         </div>
         <div class="founder-info">
           <h3>Yudi Ardata</h3>
           <p class="position">CEO & Pendiri BikinSerius.id</p>
+          <div class="bio">
+            <p>Seorang profesional di bidang IT dengan pengalaman lebih dari 10 tahun. Memiliki keahlian dalam pengembangan perangkat lunak, keamanan siber, dan strategi digital.</p>
+          </div>
+          <div class="education">
             <h4>Telah mendapatkan:</h4>
             <p><i class="fas fa-certificate"></i> Sertifikasi CISSP, CEH, dan CISM</p>
           </div>
@@ -1093,7 +1124,7 @@
               <li>Kemampuan problem-solving dan analytical thinking</li>
             </ul>
           </div>
-          <a href="#apply" class="btn-card">Lamar Sekarang</a>
+          <a href="#apply" class="btn-card" data-position="Fullstack Developer">Lamar Sekarang</a>
         </div>
 
         <div class="position-card">
@@ -1115,7 +1146,7 @@
               <li>Kemampuan berkolaborasi dengan tim development</li>
             </ul>
           </div>
-          <a href="#apply" class="btn-card">Lamar Sekarang</a>
+          <a href="#apply" class="btn-card" data-position="UI/UX Designer">Lamar Sekarang</a>
         </div>
 
         <div class="position-card">
@@ -1137,7 +1168,7 @@
               <li>Pengalaman dengan forensik digital dan incident response</li>
             </ul>
           </div>
-          <a href="#apply" class="btn-card">Lamar Sekarang</a>
+          <a href="#apply" class="btn-card" data-position="Cyber Security">Lamar Sekarang</a>
         </div>
 
         <!-- New Position: Content Creator -->
@@ -1160,7 +1191,7 @@
               <li>Kreatif, inovatif, dan memahami tren terkini</li>
             </ul>
           </div>
-          <a href="#apply" class="btn-card">Lamar Sekarang</a>
+          <a href="#apply" class="btn-card" data-position="Konten Kreator">Lamar Sekarang</a>
         </div>
 
         <!-- New Position: Digital Sales -->
@@ -1183,7 +1214,7 @@
               <li>Target-oriented dan mampu bekerja under pressure</li>
             </ul>
           </div>
-          <a href="#apply" class="btn-card">Lamar Sekarang</a>
+          <a href="#apply" class="btn-card" data-position="Digital Sales">Lamar Sekarang</a>
         </div>
 
         <div class="position-card">
@@ -1205,7 +1236,7 @@
               <li>Kemampuan membuat kurikulum dan materi training</li>
             </ul>
           </div>
-          <a href="#apply" class="btn-card">Lamar Sekarang</a>
+          <a href="#apply" class="btn-card" data-position="Mentor IT">Lamar Sekarang</a>
         </div>
       </div>
     </div>
@@ -1294,48 +1325,55 @@
         <div class="apply-form">
           <div class="form-header">
             <h2>Formulir Pendaftaran</h2>
-            <p>Isi data diri Anda dengan lengkap dan benar untuk proses seleksi</p>
+            <p>Isi data diri Anda dengan lengkap dan benar untuk proses seleksi. Setelah mengisi formulir, Anda akan diarahkan ke WhatsApp untuk konfirmasi.</p>
           </div>
           <form id="registration-form">
             <div class="form-group">
-              <label for="fullname">Nama Lengkap</label>
+              <label for="fullname">Nama Lengkap <span class="required">*</span></label>
               <input type="text" id="fullname" required placeholder="Nama sesuai KTP">
+              <div class="error-message" id="fullname-error">Nama lengkap harus diisi</div>
             </div>
             <div class="form-row">
               <div class="form-group">
-                <label for="email">Email</label>
+                <label for="email">Email <span class="required">*</span></label>
                 <input type="email" id="email" required placeholder="email@gmail.com">
+                <div class="error-message" id="email-error">Email harus valid</div>
               </div>
               <div class="form-group">
-                <label for="phone">Telepon/WhatsApp</label>
+                <label for="phone">Telepon/WhatsApp <span class="required">*</span></label>
                 <input type="tel" id="phone" required placeholder="08xx-xxxx-xxxx">
+                <div class="error-message" id="phone-error">Nomor telepon harus diisi</div>
               </div>
             </div>
             <div class="form-group">
-              <label for="position">Posisi Dilamar</label>
+              <label for="position">Posisi Dilamar <span class="required">*</span></label>
               <select id="position" required>
                 <option value="">Pilih Posisi</option>
-                <option value="developer">Fullstack Developer</option>
-                <option value="designer">UI/UX Designer</option>
-                <option value="security">Cyber Security Specialist</option>
-                <option value="content">Konten Kreator</option>
-                <option value="sales">Digital Sales Specialist</option>
-                <option value="instructor">IT Training Instructor</option>
+                <option value="Fullstack Developer">Fullstack Developer</option>
+                <option value="UI/UX Designer">UI/UX Designer</option>
+                <option value="Cyber Security">Cyber Security Specialist</option>
+                <option value="Konten Kreator">Konten Kreator</option>
+                <option value="Digital Sales">Digital Sales Specialist</option>
+                <option value="Mentor IT">IT Training Instructor</option>
               </select>
+              <div class="error-message" id="position-error">Posisi harus dipilih</div>
             </div>
             <div class="form-group">
-              <label for="experience">Pengalaman Kerja (tahun)</label>
+              <label for="experience">Pengalaman Kerja (tahun) <span class="required">*</span></label>
               <input type="number" id="experience" min="0" required placeholder="Jumlah tahun pengalaman">
+              <div class="error-message" id="experience-error">Pengalaman kerja harus diisi</div>
             </div>
             <div class="form-group">
-              <label for="cv">Upload CV (PDF, max 2MB)</label>
+              <label for="cv">Upload CV (PDF, max 2MB) <span class="required">*</span></label>
               <div class="file-upload">
                 <input type="file" id="cv" accept=".pdf" required>
                 <label for="cv"><i class="fas fa-cloud-upload-alt"></i> Pilih File</label>
               </div>
+              <div class="file-name" id="file-name">Belum ada file dipilih</div>
+              <div class="error-message" id="cv-error">File CV harus diupload</div>
             </div>
             <div class="form-group">
-              <label for="portfolio">Link Portofolio/GitHub/LinkedIn</label>
+              <label for="portfolio">Link Portofolio/GitHub/LinkedIn (opsional)</label>
               <input type="url" id="portfolio" placeholder="https://">
             </div>
             <div class="form-group">
@@ -1344,9 +1382,17 @@
             </div>
             <div class="agreement">
               <input type="checkbox" id="agree" required>
-              <label for="agree">Saya menyetujui pembayaran biaya pendaftaran sebesar Rp 119.000 setelah lolos tahap seleksi administrasi</label>
+              <label for="agree">Saya menyetujui pembayaran biaya pendaftaran sebesar Rp 99.000 setelah lolos tahap seleksi administrasi</label>
             </div>
+            <div class="error-message" id="agree-error">Anda harus menyetujui persyaratan</div>
             <button type="submit" class="btn-submit">Kirim Pendaftaran</button>
+            
+            <div class="whatsapp-direct">
+              <p>Atau langsung hubungi kami via WhatsApp</p>
+              <a href="https://wa.me/6287857424226?text=Halo%20BikinSerius.id,%20saya%20ingin%20mendaftar%20sebagai%20kandidat" class="btn-primary" target="_blank">
+                <i class="fab fa-whatsapp"></i> Daftar via WhatsApp
+              </a>
+            </div>
           </form>
         </div>
         <div class="apply-info">
@@ -1520,13 +1566,139 @@
         });
       });
       
-      // Form submission handling
+      // File upload name display
+      const fileInput = document.getElementById('cv');
+      const fileName = document.getElementById('file-name');
+      
+      fileInput.addEventListener('change', function() {
+        if (this.files.length > 0) {
+          fileName.textContent = this.files[0].name;
+          
+          // Validate file size (max 2MB)
+          if (this.files[0].size > 2 * 1024 * 1024) {
+            alert('Ukuran file terlalu besar. Maksimal 2MB.');
+            this.value = '';
+            fileName.textContent = 'Belum ada file dipilih';
+          }
+        } else {
+          fileName.textContent = 'Belum ada file dipilih';
+        }
+      });
+      
+      // Pre-fill position when clicking "Lamar Sekarang" from position cards
+      document.querySelectorAll('.btn-card').forEach(button => {
+        button.addEventListener('click', function() {
+          const position = this.getAttribute('data-position');
+          if (position) {
+            document.getElementById('position').value = position;
+          }
+        });
+      });
+      
+      // Form validation and submission handling
       const registrationForm = document.getElementById('registration-form');
       if (registrationForm) {
         registrationForm.addEventListener('submit', function(e) {
           e.preventDefault();
-          alert('Terima kasih! Pendaftaran Anda telah berhasil dikirim. Tim kami akan menghubungi Anda dalam 1-2 hari kerja.');
+          
+          // Reset error states
+          document.querySelectorAll('.error-message').forEach(el => {
+            el.style.display = 'none';
+          });
+          document.querySelectorAll('input, select, textarea').forEach(el => {
+            el.classList.remove('error');
+          });
+          
+          let isValid = true;
+          
+          // Validate required fields
+          const fullname = document.getElementById('fullname');
+          if (!fullname.value.trim()) {
+            document.getElementById('fullname-error').style.display = 'block';
+            fullname.classList.add('error');
+            isValid = false;
+          }
+          
+          const email = document.getElementById('email');
+          if (!email.value.trim() || !/^\S+@\S+\.\S+$/.test(email.value)) {
+            document.getElementById('email-error').style.display = 'block';
+            email.classList.add('error');
+            isValid = false;
+          }
+          
+          const phone = document.getElementById('phone');
+          if (!phone.value.trim()) {
+            document.getElementById('phone-error').style.display = 'block';
+            phone.classList.add('error');
+            isValid = false;
+          }
+          
+          const position = document.getElementById('position');
+          if (!position.value) {
+            document.getElementById('position-error').style.display = 'block';
+            position.classList.add('error');
+            isValid = false;
+          }
+          
+          const experience = document.getElementById('experience');
+          if (!experience.value || experience.value < 0) {
+            document.getElementById('experience-error').style.display = 'block';
+            experience.classList.add('error');
+            isValid = false;
+          }
+          
+          const cv = document.getElementById('cv');
+          if (!cv.files || cv.files.length === 0) {
+            document.getElementById('cv-error').style.display = 'block';
+            cv.classList.add('error');
+            isValid = false;
+          }
+          
+          const agree = document.getElementById('agree');
+          if (!agree.checked) {
+            document.getElementById('agree-error').style.display = 'block';
+            isValid = false;
+          }
+          
+          if (!isValid) {
+            // Scroll to first error
+            const firstError = document.querySelector('.error');
+            if (firstError) {
+              firstError.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            }
+            return;
+          }
+          
+          // Prepare WhatsApp message
+          const portfolio = document.getElementById('portfolio').value;
+          const message = document.getElementById('message').value;
+          
+          let whatsappMessage = `Halo BikinSerius.id, saya ingin mendaftar sebagai kandidat.%0A%0A`;
+          whatsappMessage += `*Nama Lengkap:* ${fullname.value}%0A`;
+          whatsappMessage += `*Email:* ${email.value}%0A`;
+          whatsappMessage += `*Telepon/WhatsApp:* ${phone.value}%0A`;
+          whatsappMessage += `*Posisi Dilamar:* ${position.value}%0A`;
+          whatsappMessage += `*Pengalaman Kerja:* ${experience.value} tahun%0A`;
+          
+          if (portfolio) {
+            whatsappMessage += `*Portofolio:* ${portfolio}%0A`;
+          }
+          
+          if (message) {
+            whatsappMessage += `*Pesan:* ${message}%0A`;
+          }
+          
+          whatsappMessage += `%0ASaya telah mengisi formulir pendaftaran dan menyetujui biaya pendaftaran sebesar Rp 99.000.`;
+          
+          // Open WhatsApp
+          window.open(`https://wa.me/6287857424226?text=${whatsappMessage}`, '_blank');
+          
+          // Show success message
+          alert('Terima kasih! Pendaftaran Anda telah berhasil dikirim. Tim kami akan menghubungi Anda melalui WhatsApp dalam 1-2 hari kerja.');
+          
+          // Reset form
           registrationForm.reset();
+          fileName.textContent = 'Belum ada file dipilih';
         });
       }
     });
